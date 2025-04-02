@@ -20,13 +20,19 @@ class AdminController extends Controller
             'email' => 'required|email',
             'password' => 'required|min:6',
         ]);
-    
+
+        // Check if the user exists and is activated
+        $user = User::where('email', $request->email)->first();
+        if ($user && !$user->is_activated) {
+            return back()->withErrors(['email' => 'Your account is not activated yet. Please wait until the admin accepts your registration request.']);
+        }
+
         // Check if the credentials are correct
         if (Auth::attempt(['email' => $request->email, 'password' => $request->password])) {
             // If login is successful, redirect to the admin dashboard
             return redirect()->route('admin.dashboard');
         }
-    
+
         // If the credentials are incorrect, send back with an error
         return back()->withErrors(['email' => 'Email or Password are incorrect']);
     }

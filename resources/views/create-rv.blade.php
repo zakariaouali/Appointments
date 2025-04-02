@@ -127,6 +127,10 @@
                     <option value="nutrition" {{ old('specialty') == 'nutrition' ? 'selected' : '' }}>Nutrition</option>
                     <option value="homeopathy" {{ old('specialty') == 'homeopathy' ? 'selected' : '' }}>Homeopathy</option>
                     <option value="cupping_therapy" {{ old('specialty') == 'cupping_therapy' ? 'selected' : '' }}>Cupping Therapy</option>
+                    <option value="acupuncture" {{ old('specialty') == 'acupuncture' ? 'selected' : '' }}>Acupuncture</option>
+                    <option value="esthetique" {{ old('specialty') == 'esthetique' ? 'selected' : '' }}>Esthéstique</option>
+                    <option value="permis_de_conduire" {{ old('specialty') == 'permis_de_conduire' ? 'selected' : '' }}>Permis de conduire</option>
+                    <option value="autre" {{ old('specialty') == 'autre' ? 'selected' : '' }}>Autre</option>
                 </select>
             </div>
 

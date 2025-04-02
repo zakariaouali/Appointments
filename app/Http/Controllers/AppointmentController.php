@@ -91,8 +91,14 @@ class AppointmentController extends Controller
                 $query->whereMonth('desired_date', Carbon::now()->month);
             }
         }
+        
+        if ($request->has('specific_date') && $request->specific_date != '') {
+            $query->whereDate('desired_date', $request->specific_date);
+        }
+        // Order by created_at in descending order
+        $query->orderBy('created_at', 'desc');
     
-        $appointments = $query->paginate(10);
+        $appointments = $query->simplePaginate(5);
     
         return view('appointments', compact('appointments'));
     }

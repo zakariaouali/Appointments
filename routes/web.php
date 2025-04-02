@@ -2,8 +2,10 @@
 
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\UserController;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\PatientsController;
+use App\Http\Controllers\RegisterController;
 use App\Http\Controllers\AppointmentController;
 
 
@@ -22,6 +24,15 @@ Route::get('/logout', function () {
     return redirect('/login');})->name('admin.logout');
 
 
+
+
+Route::get('register', [RegisterController::class, 'showRegistrationForm'])->name('register');
+Route::post('register', [RegisterController::class, 'register']);
+
+Route::middleware(['auth'])->group(function () {
+    Route::get('profile', [UserController::class, 'profile'])->name('profile');
+    Route::post('activate-user/{user}', [UserController::class, 'activateUser'])->name('activate-user');
+});
 
 Route::post('/appointments', [AppointmentController::class, 'store'])->name('appointments.store');
 Route::post('/appointments', [AppointmentController::class, 'store']);
@@ -50,4 +61,6 @@ Route::middleware(['auth'])->group(function () {
     Route::put('/admin/patients/{id}', [PatientsController::class, 'updatePatient'])->name('admin.patients.update');
     Route::delete('/admin/patients/{id}', [PatientsController::class, 'destroy'])->name('admin.patients.destroy');
     Route::get('/admin/patients/{id}/history', [PatientsController::class, 'history'])->name('admin.patients.history');
+    Route::get('profile', [UserController::class, 'profile'])->name('profile');
+    Route::post('activate-user/{user}', [UserController::class, 'activateUser'])->name('activate-user');
 });
